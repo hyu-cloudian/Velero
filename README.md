@@ -28,7 +28,6 @@ hosts {
            fallthrough
         }
  ```
-3. Modify host 
 
 
 ### Installing
