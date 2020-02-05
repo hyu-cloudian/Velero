@@ -68,23 +68,33 @@ velero install \
  kubectl get deployments --namespace=nginx-example
 ```
 ### Back up
-1. Create a backup for any object that matches the app=nginx label selector:
+1. First confirm the current namespaces in K8s and you can find a namespace named nginx-example
+``` 
+kubectl get ns
+``` 
+2. Create a backup for any object that matches the app=nginx label selector:
 ``` 
 velero backup create nginx-backup --selector app=nginx
 ``` 
 After running this command, a folder named backups is expected to be shown in Hyperstore.
-![Image workflow](https://github.com/cloudian/hyperview/blob/hyu-cloudian-newTech/Bucket_status_for_daimler/exporter_prometheus_grafana.png)
+![Image workflow](https://github.com/hyu-cloudian/Velero/blob/master/backup_and_restore.png)
 
-2. Simulate a disaster
+3. Simulate a disaster
 ``` 
 kubectl delete namespace nginx-example
 ``` 
+If you run get namespaces again, you can find the namespace named nginx-example has been deleted.
+``` 
+kubectl get ns
+``` 
 ### Restore
-Run:
+1.Run:
 ```
 velero restore create --from-backup nginx-backup
 ```
-Run:
+The confirm the namespaces again, you will find the namespace named nginx-example has been restored
 ```
-velero restore get
+kubectl get ns
 ```
+![Image workflow](https://github.com/hyu-cloudian/Velero/blob/master/command.png)
+ 
