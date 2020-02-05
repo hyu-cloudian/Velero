@@ -76,7 +76,7 @@ kubectl get ns
 ``` 
 velero backup create nginx-backup --selector app=nginx
 ``` 
-After running this command, a folder named backups is expected to be shown in Hyperstore.
+After running this command, a folder named backups is expected to be shown in Hyperstore velero bucket.
 ![Image workflow](https://github.com/hyu-cloudian/Velero/blob/master/backup_and_restore.png)
 
 3. Simulate a disaster
@@ -92,7 +92,8 @@ kubectl get ns
 ```
 velero restore create --from-backup nginx-backup
 ```
-The confirm the namespaces again, you will find the namespace named nginx-example has been restored
+After runing this command, a folder named restores will appear in Hyperstore velero bucket.
+Then confirm the namespaces again, you will find the namespace named nginx-example has been restored
 ```
 kubectl get ns
 ```
