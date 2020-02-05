@@ -1,14 +1,23 @@
 # Velero
 This document describes how Velero works with Hyperstore
+### Introduction
+Velero (formerly Heptio Ark) gives you tools to back up and restore your Kubernetes cluster resources and persistent volumes. You can run Velero with a cloud provider or on-premises. Velero lets you:<br>
+
+Take backups of your cluster and restore in case of loss.<br>
+Migrate cluster resources to other clusters.<br>
+Replicate your production cluster to development and testing clusters.<br>
+Velero consists of:<br>
+A server that runs on your cluster<br>
+A command-line client that runs locally<br>
 ### Prerequisites
-1.Access to a Kubernetes cluster, version 1.7 or later. Note: restic support requires Kubernetes version 1.10 or later, or an earlier version with the mount propagation feature enabled.<br>
-For example,install Minikube
+1. Access to a Kubernetes cluster, version 1.7 or later. Note: restic support requires Kubernetes version 1.10 or later, or an earlier version with the mount propagation feature enabled.<br>
+For example,install Minikube in your local machine
 ```
  $ brew install minikube
  $ minikube start --kubernetes-version v1.17.0
 ```
 2. A DNS server on the cluster <br>
-Modify the config-map of coreDNS
+You can modify the config-map of coreDNS
 ```
 $ kubectl edit cm coredns -n kube-system 
 ```
@@ -28,16 +37,16 @@ hosts {
            fallthrough
         }
  ```
-
+3. Create a bucket named velero in Hyperstore.
 
 ### Installing
 1. Create a Velero-specific credentials file (credentials-velero) in your local directory:
 ```
- [default]
+[default]
 aws_access_key_id = [hyperstore aws_access_key_id]
 aws_secret_access_key = [hyperstore ws_secret_access_key]
 ```
-
+You can get [hyperstore aws_access_key_id] and [hyperstore ws_secret_access_key] from [user]-[Security Credentials]-[Service Information] in Hyperstore.<br>
 2. Run
 ```
 velero install \
@@ -63,6 +72,9 @@ velero install \
 ``` 
 velero backup create nginx-backup --selector app=nginx
 ``` 
+After running this command, a folder named backups is expected to be shown in Hyperstore.
+![Image workflow](https://github.com/cloudian/hyperview/blob/hyu-cloudian-newTech/Bucket_status_for_daimler/exporter_prometheus_grafana.png)
+
 2. Simulate a disaster
 ``` 
 kubectl delete namespace nginx-example
