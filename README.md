@@ -13,13 +13,13 @@ A command-line client that runs locally<br>
 1. Access to a Kubernetes cluster, version 1.7 or later. Note: restic support requires Kubernetes version 1.10 or later, or an earlier version with the mount propagation feature enabled.<br>
 For example,install Minikube in your local machine
 ```
- $ brew install minikube
- $ minikube start --kubernetes-version v1.17.0
+ brew install minikube
+ minikube start --kubernetes-version v1.17.0
 ```
 2. A DNS server on the cluster <br>
 You can modify the config-map of coreDNS
 ```
-$ kubectl edit cm coredns -n kube-system 
+ kubectl edit cm coredns -n kube-system 
 ```
 Add the following code after the block of kubernetes cluster.local in-addr.arpa ip6.arpa
 ```
